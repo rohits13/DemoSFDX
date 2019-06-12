@@ -1,5 +1,5 @@
 public class Demo {
-    public Demo(){ 
+    public Demo(){
         System.debug('Test');
     }
 }
