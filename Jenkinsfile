@@ -18,7 +18,7 @@ node {
     println CONNECTED_APP_CONSUMER_KEY
     def toolbelt = tool 'toolbelt'
 
-    stage('checkout source') {
+    stage('Checkout Source') {
         // when running in multi-branch job, one must issue this command
         checkout scm
     }
@@ -34,17 +34,39 @@ node {
 			println rc
         }
 
-        stage('Deploy') {	
-			// need to pull out assigned username
+        stage('Validate') {
+			if (isUnix()) {
+				rmsg = sh returnStdout: true, script: "${toolbelt} force:source:deploy --manifest manifest/package.xml -u ${HUB_ORG}"
+			}else{
+			    rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:source:deploy --manifest manifest/package.xml -u ${HUB_ORG} -c"
+			}
+            println(rmsg)
+        } 	
+
+        stage('Deploy with Source Command') {	
 			if (isUnix()) {
 				rmsg = sh returnStdout: true, script: "${toolbelt} force:source:deploy --manifest manifest/package.xml -u ${HUB_ORG}"
 			}else{
 			    rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:source:deploy --manifest manifest/package.xml -u ${HUB_ORG}"
 			}
+            println(rmsg)
+        }
+
+      /* stage('Deploy with MDAPI Command') {	
+			if (isUnix()) {
+				rmsg = sh returnStdout: true, script: "${toolbelt} force:source:deploy --manifest manifest/package.xml -u ${HUB_ORG}"
+			}else{
+                rc = bat returnStdout: true, script: "\"${toolbelt}\" sfdx force:source:convert --rootdir force-app --outputdir tmp_convert"
+                rc1 = bat returnStdout: true, script: "\"${toolbelt}\" sfdx force:source:convert --rootdir force-app --outputdir tmp_convert"
+                rc2 = bat returnStdout: true, script: "\"${toolbelt}\" sfdx force:source:convert --rootdir force-app --outputdir tmp_convert"
+                
+			    rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:source:deploy --manifest manifest/package.xml -u ${HUB_ORG}"
+			}
 			  
             printf rmsg
-            println('Hello from a Job DSL script!')
             println(rmsg)
+        }*/
+
         }
     }
 }
