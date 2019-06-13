@@ -36,9 +36,9 @@ node {
 
         stage('Validate') {
 			if (isUnix()) {
-				rc = sh returnStdout: true, script: "${toolbelt} sfdx force:source:deploy -q VALIDATEDDEPLOYREQUESTID"
+				rc = sh returnStdout: true, script: "${toolbelt} force:source:deploy -q VALIDATEDDEPLOYREQUESTID"
 			}else{
-			    rc = bat returnStdout: true, script: "\"${toolbelt}\" sfdx force:source:deploy -q VALIDATEDDEPLOYREQUESTID"
+			    rc = bat returnStdout: true, script: "\"${toolbelt}\" force:source:deploy -q VALIDATEDDEPLOYREQUESTID"
 			}	
             if (rc != 0) { error 'Validation failed' }	  
             printf rc
