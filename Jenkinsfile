@@ -34,7 +34,7 @@ node {
 			println rc
         }
 
-        stage('Validate') {
+     /*   stage('Validate') {
 			if (isUnix()) {
 				rc = sh returnStdout: true, script: "${toolbelt} force:source:deploy -q VALIDATEDDEPLOYREQUESTID"
 			}else{
@@ -42,7 +42,7 @@ node {
 			}	
             if (rc != 0) { error 'Validation failed' }	  
             printf rc
-        }	
+        }	*/
 
         stage('Deploy') {
 			if (isUnix()) {
