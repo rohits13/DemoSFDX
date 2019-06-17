@@ -36,8 +36,10 @@ node {
             }
             //if (rc != 0) { error 'hub org authorization failed' }
 	        //println rc
+		rmsg = sh returnStdout: true, script: "${toolbelt}/sfdx force:org:create --definitionfile config/project-scratch-def.json --json --setdefaultusername"
+                printf rmsg
 		def jsonSlurper = new groovy.json.JsonSlurperClassic()		
-		def robj = jsonSlurper.parseText('{"person":{"name":"Guillaume","age":33,"pets":["dog","cat"]}}')
+		def robj = jsonSlurper.parseText(rmsg)
 		println robj
 		//SFDC_USERNAME=robj.result.username
 		robj = null
