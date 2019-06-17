@@ -24,19 +24,18 @@ node {
     }
 
     withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]) {
-        def robj
         stage('Authorization Org') {
             if (isUnix()) {
                 rmsg = sh returnStatus: true, script: "${toolbelt} force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
             }else{
                 rmsg = bat returnStatus: true, script: "\"${toolbelt}\" force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile \"${jwt_key_file}\" --json --setdefaultusername --instanceurl ${SFDC_HOST}"
-                printf rmsg
-                def jsonSlurper = new JsonSlurperClassic()
-                robj = jsonSlurper.parseText(rmsg)
+                
             }
+	    def jsonSlurper = new JsonSlurperClassic()
+            def robj = jsonSlurper.parseText(rmsg)
             if (robj.status != 0) { error 'org authorization failed: ' + robj.message }
             SFDC_USERNAME=robj.result.username            
-			println rmsg
+	    println rmsg
             println SFDC_USERNAME
             robj = null
         }
