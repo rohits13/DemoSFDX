@@ -31,15 +31,13 @@ node {
                 rc = sh returnStatus: true, script: "${toolbelt} force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
             }else{
 	      
-                rc = bat returnStatus: true, script: "\"${toolbelt}\" force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile \"${jwt_key_file}\" --json --setdefaultusername --instanceurl ${SFDC_HOST}"
+                rc = bat returnStatus: true, script: "\"${toolbelt}\" force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile \"${jwt_key_file}\"  --setdefaultusername --instanceurl ${SFDC_HOST}"
 		 println rc
             }
-            //if (rc != 0) { error 'hub org authorization failed' }
-	        //println rc
-		rmsg = sh returnStdout: true, script: "${toolbelt}/sfdx force:org:create --definitionfile config/project-scratch-def.json --json --setdefaultusername"
-                printf rmsg
+            if (rc != 0) { error 'hub org authorization failed' }
+	        println rc
 		def jsonSlurper = new groovy.json.JsonSlurperClassic()		
-		def robj = jsonSlurper.parseText(rmsg)
+		def robj = jsonSlurper.parseText(rc)
 		println robj
 		//SFDC_USERNAME=robj.result.username
 		robj = null
