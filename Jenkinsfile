@@ -33,7 +33,7 @@ node {
             //if (rc != 0) { error 'hub org authorization failed' }
 	        println rc
 		def jsonSlurper = new groovy.json.JsonSlurperClassic()		
-		def robj = jsonSlurper.parseText(rc.toString())
+		def robj = jsonSlurper.parseText('{"person":{"name":"Guillaume","age":33,"pets":["dog","cat"]}}')
 		println robj
 		//SFDC_USERNAME=robj.result.username
 		robj = null
