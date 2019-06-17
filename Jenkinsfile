@@ -43,8 +43,7 @@ node {
 		 bat "jar -cfM unpackaged.zip tmp_convert"
 		 bat "del /s /f /q tmp_convert"
 		 bat "rd /q tmp_convert"
-		  if exist tmp_convert 
-		  bat "rd /q tmp_convert"
+		 bat "rd /q tmp_convert"
 		 rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy -c -f unpackaged.zip -u ${HUB_ORG}"
 	  }
 	    println(rmsg)
