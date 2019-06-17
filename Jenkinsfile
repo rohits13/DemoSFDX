@@ -31,7 +31,7 @@ node {
                 rc = bat returnStatus: true, script: "\"${toolbelt}\" force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile \"${jwt_key_file}\" --json --setdefaultusername --instanceurl ${SFDC_HOST}"
             }
             //if (rc != 0) { error 'hub org authorization failed' }
-	        println rc
+	        //println rc
 		def jsonSlurper = new groovy.json.JsonSlurperClassic()		
 		def robj = jsonSlurper.parseText('{"person":{"name":"Guillaume","age":33,"pets":["dog","cat"]}}')
 		println robj
