@@ -39,7 +39,6 @@ node {
 	  if (isUnix()) {
 		rmsg = sh returnStdout: true, script: "${toolbelt} force:source:deploy --manifest manifest/package.xml -u ${HUB_ORG}"
 	   }else{
-		 sh "rm -rf unpackaged.zip"
 		 sh "\"${toolbelt}\" force:source:convert --rootdir force-app --zipfile unpackaged.zip"
 		 rmsg = sh returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy --checkonly --zipfile unpackaged.zip --targetusername ${HUB_ORG} -w 10"
 		
