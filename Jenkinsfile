@@ -39,10 +39,13 @@ node {
 	  if (isUnix()) {
 		rmsg = sh returnStdout: true, script: "${toolbelt} force:source:deploy --manifest manifest/package.xml -u ${HUB_ORG}"
 	   }else{
-		 bat "\"${toolbelt}\" force:source:convert --rootdir force-app --outputdir tmp_convert"
-		 bat "jar -cfM unpackaged.zip tmp_convert"
-		 bat "del /s /f /q tmp_convert"
-		 rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy --checkonly --zipfile unpackaged.zip --targetusername ${HUB_ORG} -w 10"
+		 sh "rm -rf unpackaged.zip"
+		 sh "\"${toolbelt}\" force:source:convert --rootdir force-app --zipfile unpackaged.zip"
+		 rmsg = sh returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy --checkonly --zipfile unpackaged.zip --targetusername ${HUB_ORG} -w 10"
+		
+		 //bat "jar -cfM unpackaged.zip tmp_convert" 
+		 //bat "del /s /f /q tmp_convert"
+		 //rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy --checkonly --zipfile unpackaged.zip --targetusername ${HUB_ORG} -w 10"
 	  }
 	    println(rmsg)
 	} 	
