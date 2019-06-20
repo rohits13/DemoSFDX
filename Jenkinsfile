@@ -39,9 +39,9 @@ node {
 	  if (isUnix()) {
 		rmsg = sh returnStdout: true, script: "${toolbelt} force:source:deploy --manifest manifest/package.xml -u ${HUB_ORG}"
 	   }else{
-		 sh "\"${toolbelt}\" force:source:convert --rootdir force-app --outputdir tmp_convert" # Covert 
-		 sh "jar -cfM unpackaged.zip tmp_convert" # zip the folder tmp_convert to unpackaged.zip file
-		 sh "rm -rf tmp_convert" # Delete the tmp_convert folder
+		 sh "\"${toolbelt}\" force:source:convert --rootdir force-app --outputdir tmp_convert" 
+		 sh "jar -cfM unpackaged.zip tmp_convert" 
+		 sh "rm -rf tmp_convert" 
 		 rmsg = sh returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy --checkonly --zipfile unpackaged.zip --targetusername ${HUB_ORG} -w 10"
 		
 		 //bat "jar -cfM unpackaged.zip tmp_convert" 
