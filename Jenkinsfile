@@ -62,7 +62,6 @@ node {
 			}
             println(rmsg)
         } 
-
         stage('Deploy with MDAPI Command') {	
 			if (isUnix()) {
 				rmsg = sh returnStdout: true, script: "${toolbelt} force:source:deploy --manifest manifest/package.xml -u ${HUB_ORG}"
@@ -76,7 +75,7 @@ node {
 			  
             printf rmsg
             println(rmsg)
-        }   
+        }     
         
         */ 
     }
