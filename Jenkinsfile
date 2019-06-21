@@ -24,6 +24,7 @@ node {
     }
 
     withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]) {
+	    env.GIT_BRANCH = 'master'
 	    String branchName = env.GIT_BRANCH
       		println 'branchName'
 		println branchName
