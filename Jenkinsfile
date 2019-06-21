@@ -22,7 +22,7 @@ node {
         // when running in multi-branch job, one must issue this command
         checkout scm   
 
-      String branchName = properties["env.GIT_BRANCH"]
+      String branchName = env.GIT_BRANCH
       println branchName
     }
 
