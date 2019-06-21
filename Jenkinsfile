@@ -20,7 +20,10 @@ node {
 
     stage('Checkout Source') {
         // when running in multi-branch job, one must issue this command
-        checkout scm
+        checkout scm   
+
+      String branchName = properties["env.GIT_BRANCH"]
+      println branchName
     }
 
     withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]) {
