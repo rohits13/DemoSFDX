@@ -27,7 +27,7 @@ node {
         
 	stage('Authorization Org') {		
             if (isUnix()) {		
-                rc = sh returnStatus: true, script: "${toolbelt} force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
+                rc = sh returnStatus: true, script: "${toolbelt} force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultusername --instanceurl ${SFDC_HOST}"
             }else{	      
                 rc = bat returnStatus: true, script: "\"${toolbelt}\" force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile \"${jwt_key_file}\"  --setdefaultusername --instanceurl ${SFDC_HOST}"
 	    }
@@ -37,10 +37,10 @@ node {
 	    
       	stage('Validate') {
 	  if (isUnix()) {
-		 sh "\"${toolbelt}\" force:source:convert --rootdir force-app --outputdir tmp_convert"
+		 sh "${toolbelt} force:source:convert --rootdir force-app --outputdir tmp_convert"
 		 sh "zip -cfM unpackaged.zip tmp_convert"
 		 sh "rm -rf tmp_convert" 
-		 rmsg = sh returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy --checkonly --zipfile unpackaged.zip --targetusername ${HUB_ORG} -w 10"
+		 rmsg = sh returnStdout: true, script: "${toolbelt} force:mdapi:deploy --checkonly --zipfile unpackaged.zip --targetusername ${HUB_ORG} -w 10"
 		
 	   }else{
 		 bat "\"${toolbelt}\" force:source:convert --rootdir force-app --outputdir tmp_convert"
