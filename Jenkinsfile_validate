@@ -39,8 +39,8 @@ node {
       	stage('Validate') {
 	  if (isUnix()) {
 		 sh "${toolbelt} force:source:convert --rootdir force-app --outputdir tmp_convert"
-		 sh "zip -cfM unpackaged.zip tmp_convert"
-		 sh "rm -rf tmp_convert" 
+		 sh "zip -r unpackaged.zip tmp_convert"
+		 sh "rm -r tmp_convert"
 		 rmsg = sh returnStdout: true, script: "${toolbelt} force:mdapi:deploy --checkonly --zipfile unpackaged.zip --targetusername ${HUB_ORG} -w 10"
 		
 	   }else{
@@ -51,33 +51,7 @@ node {
 	  	
 	  }
 	    println(rmsg)
-	} 	
-
-        
-	/*
-        stage('Deploy with Source Command') {	
-			if (isUnix()) {
-				rmsg = sh returnStdout: true, script: "${toolbelt} force:source:deploy --manifest manifest/package.xml -u ${HUB_ORG}"
-			}else{
-			    rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:source:deploy --manifest manifest/package.xml -u ${HUB_ORG}"
-			}
-            println(rmsg)
-        } 
-        stage('Deploy with MDAPI Command') {	
-			if (isUnix()) {
-				rmsg = sh returnStdout: true, script: "${toolbelt} force:source:deploy --manifest manifest/package.xml -u ${HUB_ORG}"
-			}else{
-                rc = bat returnStdout: true, script: "\"${toolbelt}\" sfdx force:source:convert --rootdir force-app --outputdir tmp_convert"
-                rc1 = bat returnStdout: true, script: "\"${toolbelt}\" sfdx force:source:convert --rootdir force-app --outputdir tmp_convert"
-                rc2 = bat returnStdout: true, script: "\"${toolbelt}\" sfdx force:source:convert --rootdir force-app --outputdir tmp_convert"
-                
-			    rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:source:deploy --manifest manifest/package.xml -u ${HUB_ORG}"
-			}
-			  
-            printf rmsg
-            println(rmsg)
-        }     
-        
-        */ 
+	}
+       
     }
 }
