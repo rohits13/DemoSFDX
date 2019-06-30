@@ -21,9 +21,6 @@ node {
     withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]) {  
         
 	stage('Authorization Org') {
-		
-	println SFDC_ORG
-		
 	    if(SFDC_ORG == 'QA') {
 		SFDC_HOST = 'https://test.salesforce.com'
 		HUB_ORG = 'rohit.shrivastava@novozymes.com.qa'
@@ -36,10 +33,11 @@ node {
 	    }
 		
 	    println 'KEY IS' 
-	    println JWT_KEY_CRED_ID
-	    println HUB_ORG
+	    println SFDC_ORG
 	    println SFDC_HOST
-	    println CONNECTED_APP_CONSUMER_KEY		
+	    println HUB_ORG
+	    println CONNECTED_APP_CONSUMER_KEY
+	    println JWT_KEY_CRED_ID
 		
             if (isUnix()) {
 		println JWT_KEY_CRED_ID
@@ -63,7 +61,6 @@ node {
 		 bat "jar -cfM unpackaged.zip tmp_convert"
 		 bat "del /s /f /q tmp_convert"
 	         rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy --checkonly --zipfile unpackaged.zip --targetusername ${HUB_ORG} -w 10"
-	  	
 	  }
 	    println(rmsg)
 	}
