@@ -31,6 +31,16 @@ node {
 		HUB_ORG = 'rohit.shrivastava@novozymes.com.sit'
 		CONNECTED_APP_CONSUMER_KEY = '3MVG9rnryk9FxFMV4sDS2gmhxHi_L9nFJLjFNVTUSxbo_T1PfArDt3wa6j_lq_qsbXb539ME7CV.CSFUTbLW_'		    
 	    }
+	    else if(SFDC_ORG == 'UAT') {
+		SFDC_HOST = 'https://test.salesforce.com'
+		HUB_ORG = 'rohit.shrivastava@novozymes.com.uat'
+		CONNECTED_APP_CONSUMER_KEY = '3MVG9N6eDmZRVJOnGGJYsooBxjCmZh4PM1cba_swhu9bEapf5Gv9Opce.W7wZxOhdubjCee2sZ0KHylB8392X'		    
+	    }
+	    else if(SFDC_ORG == 'PROD') {
+		SFDC_HOST = 'https://login.salesforce.com'
+		HUB_ORG = 'rohit.shrivastava@novozymes.com'
+		CONNECTED_APP_CONSUMER_KEY = '3MVG9pe2TCoA1Pf71uyheCGw5yRpCEa00cPdar6aWap6buTqglilas_U2MNvKhO0WODLnzhO.UNWn3iYUYIsi'		    
+	    }
 		
 	    println 'KEY IS' 
 	    println SFDC_ORG
