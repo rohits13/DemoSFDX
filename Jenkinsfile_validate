@@ -21,6 +21,9 @@ node {
     withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]) {  
         
 	stage('Authorization Org') {
+		
+	println SFDC_ORG
+		
 	    if(${SFDC_ORG} == 'QA') {
 		SFDC_HOST = 'https://test.salesforce.com'
 		HUB_ORG = 'rohit.shrivastava@novozymes.com.qa'
