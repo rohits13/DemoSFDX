@@ -63,7 +63,7 @@ node {
 		 sh "${toolbelt} force:source:convert --rootdir force-app --outputdir tmp_convert"
 		 sh "zip -r unpackaged.zip tmp_convert"
 		 sh "rm -r tmp_convert"
-		 rmsg = sh returnStdout: true, script: "${toolbelt} force:mdapi:deploy --checkonly --zipfile unpackaged.zip --targetusername ${HUB_ORG} --testlevel RunSpecifiedTests --runtests TestLanguageCourseTrigger"
+		 rmsg = sh returnStdout: true, script: "${toolbelt} force:mdapi:deploy --checkonly --zipfile unpackaged.zip --targetusername ${HUB_ORG} --testlevel RunSpecifiedTests --runtests TestLanguageCourseTrigger -w 10"
 		
 	   }else{
 		 bat "\"${toolbelt}\" force:source:convert --rootdir force-app --outputdir tmp_convert"
