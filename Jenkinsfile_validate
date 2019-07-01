@@ -22,9 +22,9 @@ node {
         
 	stage('Authorization Org') {
 	    if(SFDC_ORG == 'QA') {
-		SFDC_HOST = 'https://test.salesforce.com'
-		HUB_ORG = 'rohit.shrivastava@novozymes.com.qa'
-		CONNECTED_APP_CONSUMER_KEY = '3MVG9N6eDmZRVJOksVBR_v3IoiT1Y2Ojxcb4cvMFwD2evbg2EGQao0PdRYAchcGBozKu68fwRxrGG3nWwiHa2'		    
+		SFDC_HOST = env.SFDC_HOST_QA
+		HUB_ORG = env.HUB_ORG_QA
+		CONNECTED_APP_CONSUMER_KEY = env.CONNECTED_APP_CONSUMER_KEY_QA	    
 	    }
 	    else if(SFDC_ORG == 'SIT') {
 		SFDC_HOST = 'https://test.salesforce.com'
