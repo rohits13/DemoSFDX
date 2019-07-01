@@ -22,9 +22,9 @@ node {
         
 	stage('Authorization Org') {
 	    if(SFDC_ORG == 'QA') {
-		SFDC_HOST = env.SFDC_HOST_QA
+		SFDC_HOST = env.SFDC_HOST_SANDBOX
 		HUB_ORG = env.HUB_ORG_QA
-		CONNECTED_APP_CONSUMER_KEY = env.CONNECTED_APP_CONSUMER_KEY_QA	    
+		CONNECTED_APP_CONSUMER_KEY = env.CONNECTED_APP_CONSUMER_KEY_QA
 	    }
 	    else if(SFDC_ORG == 'SIT') {
 		SFDC_HOST = 'https://test.salesforce.com'
